@@ -1,0 +1,60 @@
+1 install:
+npm install nativewind tailwindcss react-native-reanimated react-native-safe-area-context
+
+
+
+2 create tailwind.config.js :
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  // NOTE: Update this to include the paths to all of your component files.
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+3 create global.css en root
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+4 create a babel.config.js
+
+```
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
+    ],
+  };
+};
+
+```
+
+5 If your project does not have a metro.config.js run ***npx expo customize metro.config.js*** :
+then paste it:
+
+```
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require("nativewind/metro");
+
+const config = getDefaultConfig(__dirname);
+
+module.exports = withNativeWind(config, { input: "./global.css" });
+```
+
+6 importar global.css en el layout padre
+
+7 usar tailwind
+
+```
+
+```
+8 fix typescript , crea nativewind-env.d.ts
+dentro: /// <reference types="nativewind/types" />
