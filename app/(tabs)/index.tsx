@@ -7,19 +7,21 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
+import { useState } from "react";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { listMissingValues } from "@/components/constants.js";
+import ModalScraping from "@/components/modalScraping";
 
 export default function HomeScreen() {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const printActualQr = () => {
     console.log("print actual qr");
   };
   const printQrText = "Imprimir QR";
-  const generateQr = "Generar contraseña nueva en formato QR";
 
   return (
     <ParallaxScrollView
@@ -45,12 +47,13 @@ export default function HomeScreen() {
       </View>
 
       <View>
-        <Pressable
+        <ModalScraping />
+        {/* <Pressable
           className="bg-black  text-white py-2 px-4 rounded"
           onPress={() => printActualQr()}
         >
-          <Text className="text-white font-bold text-center">{generateQr}</Text>
-        </Pressable>
+          <Text className="text-white font-bold text-center">a</Text>
+        </Pressable> */}
       </View>
       <View>
         <Text>
