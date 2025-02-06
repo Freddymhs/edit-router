@@ -1,46 +1,98 @@
-import { Image, StyleSheet, Platform, View, Text } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+} from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { listMissingValues } from "@/components/constants.js";
 
 export default function HomeScreen() {
+  const printActualQr = () => {
+    console.log("print actual qr");
+  };
+  const printQrText = "Imprimir QR";
+  const generateQr = "Generar contraseña nueva en formato QR";
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
         <Image
-          source={require("@/assets/images/partial-react-logo.png")}
+          source={require("@/assets/images/logo-img.png")}
           style={styles.reactLogo}
+          resizeMode="cover"
         />
       }
     >
-      <View>
-        <Text className="text-red-500">Hola Mundo probando NativeWind!</Text>
+      <View className="flex-row justify-between ">
+        <Text className="text-black font-extrabold text-center">OPCIONES:</Text>
+        <Pressable
+          className="bg-black  text-white font-bold py-2 px-4 rounded"
+          onPress={() => printActualQr()}
+        >
+          <Text className="text-white font-bold text-center">
+            {printQrText}
+          </Text>
+        </Pressable>
       </View>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">IMPRIMIR QR</ThemedText>
-      </ThemedView>
+
+      <View>
+        <Pressable
+          className="bg-black  text-white py-2 px-4 rounded"
+          onPress={() => printActualQr()}
+        >
+          <Text className="text-white font-bold text-center">{generateQr}</Text>
+        </Pressable>
+      </View>
+      <View>
+        <Text>
+          Guia de uso del
+          <Text className="font-bold"> Bot</Text>:
+        </Text>
+        <Text>
+          <Text className="font-bold">1.</Text> El bot usará estos datos para
+          acceder al router
+          <Text className="font-bold"> (ver routers compatibles)</Text>.
+        </Text>
+        <Text>
+          <Text className="font-bold">2.</Text> Editará el usuario y contraseña
+          del router.
+        </Text>
+        <Text>
+          <Text className="font-bold">3.</Text> Recibirá el acceso en QR listo
+          para imprimir.
+        </Text>
+      </View>
+
+      <View>
+        <Text>
+          Complete los <Text className="font-bold ">datos faltantes</Text> del
+          router en
+          <Text className="font-bold "> Configuraciones</Text>:
+        </Text>
+        {listMissingValues.map((item, index) => {
+          return (
+            <View key={index}>
+              <Text className="text-red-500"> ❌ {item.message}</Text>
+            </View>
+          );
+        })}
+      </View>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+    width: "100%",
+    height: "100%",
   },
 });
