@@ -9,3 +9,5 @@ export const listMissingValues = [
   { status: !routerAvaible, message: "Sin Conexion al Router" },
   { status: !printerFound, message: "No se encontro la impresora" },
 ];
+
+export const saveDataTxt = "Guardar Datos";
